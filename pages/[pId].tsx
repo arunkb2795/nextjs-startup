@@ -53,7 +53,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
   const data = await getData();
 
-  const ids = data.mpa((product: Product) => product.id);
+  const ids = data.products.map((product: Product) => product.id);
   const pathWithParams = ids.map((id: string) => ({
     params: {
       pId: id,
@@ -62,7 +62,7 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
   return {
     paths: pathWithParams,
-    fallback: true,
+    fallback: 'blocking',
   };
 };
 
