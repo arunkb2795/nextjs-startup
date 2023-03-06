@@ -1,12 +1,6 @@
 import fs from 'fs/promises';
+import Link from 'next/link';
 import path from 'path';
-
-// const DUMMY_POSTS = [
-//   {
-//     id: "101",
-//     title: "Post 1"
-//   }
-// ]
 
 type HomeProps = {
   posts: {
@@ -18,7 +12,7 @@ type HomeProps = {
 export default function Home(props: HomeProps) {
   const { posts } = props;
   return (
-    posts.map(post => <div key={post.id}>{post.title}</div>)
+    posts.map(post => <div key={post.id}><Link href={`/${post.id}`}>{post.title}</Link></div>)
   )
 }
 
