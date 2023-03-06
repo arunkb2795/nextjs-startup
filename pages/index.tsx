@@ -1,16 +1,28 @@
-import styled from 'styled-components'
-import BasicLayout from "../layout/Basic";
+const DUMMY_POSTS = [
+  {
+    id: "101",
+    title: "Post 1"
+  }
+]
 
-export const Title = styled.h1`
-    color:red`
-  ;
+type HomeProps = {
+  posts: {
+    id: string,
+    title: string
+  }[]
+}
 
-export default function Home() {
+export default function Home(props:HomeProps) {
+  const {posts} = props;
   return (
-    <BasicLayout>
-      <main>
-        <Title>Hello Next World!</Title>
-      </main>
-    </BasicLayout>
+    posts.map(post => <div key={post.id}>{post.title}</div>)
   )
+}
+
+export async function getStaticProps() {
+  return {
+    props: {
+      posts: DUMMY_POSTS
+    }
+  }
 }
