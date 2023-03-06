@@ -23,12 +23,14 @@ export default function Home(props: HomeProps) {
 }
 
 export async function getStaticProps() {
+  console.log('(Re)-generating...')
   const filePath = path.join(process.cwd(), 'data', 'dummy-backend.json');
   const jsonData = await fs.readFile(filePath);
   const data = JSON.parse(jsonData.toString());
   return {
     props: {
       posts: data.products
-    }
+    },
+    revalidate: 10
   }
 }
