@@ -1,6 +1,8 @@
 import fs from 'fs/promises';
 import Link from 'next/link';
 import path from 'path';
+import { useContext } from 'react';
+import { NotificationContext } from '@/context/notificationContext';
 
 type HomeProps = {
   posts: {
@@ -10,9 +12,18 @@ type HomeProps = {
 }
 
 export default function Home(props: HomeProps) {
+  const notificationCtx = useContext(NotificationContext);
+  const activeNotification = notificationCtx?.notification
+
+  console.log({ activeNotification })
+
   const { posts } = props;
   return (
-    posts.map(post => <div key={post.id}><Link href={`/${post.id}`}>{post.title}</Link></div>)
+    <div>
+      {posts.map(post => <div key={post.id}><Link href={`/${post.id}`}>{post.title}</Link></div>)}
+      <button onClick={() =>notificationCtx?.showNotification({title:"Hi",message:"Nill",status:true})}>Show</button>
+      <button onClick={() =>notificationCtx?.hideNotification()}>Hide</button>
+    </div>
   )
 }
 
